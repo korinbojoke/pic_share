@@ -40,15 +40,23 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1
   # PATCH/PUT /products/1.json
   def update
-    respond_to do |format|
-      if @product.update(product_params)
-        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
-        format.json { render :show, status: :ok, location: @product }
-      else
-        format.html { render :edit }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
-    end
+      @product = Product.find(params[:id])
+    #   respond_to do |format|
+    #       if @product.update(product_params)
+    #           format.html { redirect_to @product, notice: 'Product was successfully updated.' }
+    #           format.json { render :show, status: :ok, location: @product }
+    #       else
+    #           format.html { render :edit }
+    #           format.json { render json: @product.errors, status: :unprocessable_entity }
+    #       end
+    #   end
+        if @product.update_attributes(product_params)
+            status = 'success'
+        else
+            status = 'error'
+        end
+
+        render json: { status: status, data: @product }
   end
 
   # DELETE /products/1
