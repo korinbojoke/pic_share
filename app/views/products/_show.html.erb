@@ -1,0 +1,21 @@
+<div class="product">
+    <div class="viewer">
+        <%= button_tag 'Edit', class: 'edit', type: :button %>
+        <%= form_for product, method: :delete, remote: true, html: { id: nil, class: 'delete_product' } do |f| %>
+            <%= f.submit 'Destroy' %>
+        <% end %>
+        <span class="name"><%= product.name %></span>
+              <strong>Image:</strong>
+              <% if product.image? %>
+                <div class="thumbnail">
+                  <%= image_tag product.image.url %>
+                </div>
+              <% end %>
+    </div>
+    <div class="editor">
+        <div>
+            <%= button_tag 'Cancel', class: 'cancel', type: :button %>
+        </div>
+        <%= render 'form',  product: product, submit_text: 'Update' %>
+    </div>
+</div>

@@ -6,11 +6,20 @@ $ ->
         .on 'click', '.edit, .cancel',(event) ->
             toggleEditor $(this).closest('.product')
         .on 'ajax:complete', '.edit_product', (event, ajax, status) ->
-            resoponse =  $.parseJSON(ajax.responseText)
-            name = resoponse.data.name
+            response =  $.parseJSON(ajax.responseText)
+            name = response.data.name
             $container = $(this).closest('.product')
             $container.find('.viewer .name').text name
             toggleEditor $container
+        .on 'ajax:complete', '.delete_product', (event, ajax, status) ->
+            $(this).closest('.product').remove()
+    $('#new_product')
+        .on 'ajax:complete', (event, ajax, status) ->
+            response = $.parseJSON(ajax.responseText)
+            html = response.html
+            #画面に追加
+            $('#products').append html
+            $(this)[0].reset()
 
 toggleEditor = ($container) ->
     $container.find('.viewer, .editor').toggle()
