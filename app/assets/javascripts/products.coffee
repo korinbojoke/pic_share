@@ -6,10 +6,14 @@ $ ->
         .on 'click', '.edit, .cancel',(event) ->
             toggleEditor $(this).closest('.product')
         .on 'ajax:complete', '.edit_product', (event, ajax, status) ->
+            timestamp = new Date().getTime()
             response =  $.parseJSON(ajax.responseText)
             name = response.data.name
+            image = response.data.image
             $container = $(this).closest('.product')
+            # console.log timestam
             $container.find('.viewer .name').text name
+            $container.find('img').attr('src',image.url)
             toggleEditor $container
         .on 'ajax:complete', '.delete_product', (event, ajax, status) ->
             $(this).closest('.product').remove()

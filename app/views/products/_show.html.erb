@@ -5,12 +5,13 @@
             <%= f.submit 'Destroy' %>
         <% end %>
         <span class="name"><%= product.name %></span>
-              <strong>Image:</strong>
+        <div class="image">
               <% if product.image? %>
                 <div class="thumbnail">
                   <%= image_tag product.image.url %>
                 </div>
               <% end %>
+        </div>
     </div>
     <div class="editor">
         <div>
